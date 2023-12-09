@@ -1,0 +1,33 @@
+# Implifies
+print('Implies')
+predicates="A implies B"
+if "implies" in predicates:
+  x=predicates.replace(predicates,"~A V B")
+print(x)
+#BiconditionalImplies
+print('BiconditionalImplies')
+predicates="A biconditionalimplies B"
+if "biconditionalimplies" in predicates:
+  x=predicates.replace(predicates,"(~A V B) ^ (~B V A)")
+print(x)
+#Another way
+predicates="A biconditionalimplies B"
+if "biconditionalimplies" in predicates:
+  predicates=predicates.replace(predicates,"(A implies B)^(B implies A)")
+i=predicates.index("^")
+p1=predicates[:i]
+p2=predicates[i+1:]
+if "implies" in p1:
+  x=p1.replace(p1,"(~A V B)")
+if "implies" in p2:
+  y=p2.replace(p2,"(~B V A)")
+z=predicates[i]
+print(x+z+y)
+#For all
+print('For all')
+predicates="for every x in p(x)"
+i=predicates.index("y")
+if "for" in predicates:
+  p1=predicates[i+2:i+4]
+print(p1)
+
