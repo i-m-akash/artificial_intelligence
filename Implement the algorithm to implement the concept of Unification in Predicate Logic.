@@ -1,0 +1,45 @@
+def unify_var(var, x, substitution):
+    if var in substitution:
+        return unify(substitution[var], x, substitution)
+    elif x in substitution:
+        return unify(var, substitution[x], substitution)
+    else:
+        substitution[var] = x
+        return substitution
+def unify(x, y, substitution=None):
+    if substitution is None:
+        substitution = {}
+
+    if x == y:
+       return substitution
+    elif isinstance(x, str) and x.isalpha() and x.islower():
+ return unify_var(x, y, substitution)
+    elif isinstance(y, str) and y.isalpha() and y.islower():
+       return unify_var(y, x, substitution)
+    elif isinstance(x, list) and isinstance(y, list):
+       if len(x) == len(y):
+          for i in range(len(x)):
+              substitution = unify(x[i], y[i], substitution)
+          return substitution
+    return None
+# Example usage:
+n = int(input("Enter the no of of variable in term 1--"))
+m = int(input("Enter the no of of variable in term 2--"))
+term1 = []
+term2 = []
+print("Enter the element in term1---")
+for i in range(0,n ):
+    ele= (input())
+    term1.append(ele)
+print("Enter the element in term2---")
+for i in range(0,m ):
+    ele= (input())
+    term2.append(ele)
+substitution = unify(term1, term2)
+
+if substitution is not None:
+     print("Unification successful. Substitution:")
+     for var, value in substitution.items():
+         print(f"{var} ->{value}")
+else:
+     print("Unification failed.")
